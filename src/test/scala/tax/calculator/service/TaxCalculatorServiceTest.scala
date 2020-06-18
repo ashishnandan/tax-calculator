@@ -34,12 +34,12 @@ class TaxCalculatorServiceTest extends FunSuite{
     assert(0 == new TaxCalculatorService(2018, 30, 75000, 0).get_tax)
     assert(15000 == new TaxCalculatorService(2018, 30, 250000, 0).get_tax)
 
-    assert(2000000 == new TaxCalculatorService(2019, 66, 7500000, 150000).get_tax)
-    assert(2015000 == new TaxCalculatorService(2019, 56, 7500000, 150000).get_tax)
+    assert(2040000 == new TaxCalculatorService(2019, 66, 7500000, 150000).get_tax)
+    assert(2055300 == new TaxCalculatorService(2019, 56, 7500000, 150000).get_tax)
     assert(140000 == new TaxCalculatorService(2019, 66, 1250000, 150000).get_tax)
 
-    assert(1760000 == new TaxCalculatorService(2020, 56, 7500000, 0).get_tax)
-    assert(1703750 == new TaxCalculatorService(2020, 66, 7500000, 150000).get_tax)
-    assert(1691250 == new TaxCalculatorService(2020, 66, 7500000, 200000).get_tax)
+    assert(1848000 == new TaxCalculatorService(2020, 56, 7500000, 0).get_tax)
+    assert(1788937.5 == new TaxCalculatorService(2020, 66, 7500000, 150000).get_tax)
+    assert(1775812.5 == new TaxCalculatorService(2020, 66, 7500000, 200000).get_tax)
   }
 }

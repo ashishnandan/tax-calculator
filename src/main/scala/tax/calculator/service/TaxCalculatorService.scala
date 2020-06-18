@@ -9,6 +9,7 @@ import scala.util.control.Breaks._
 class TaxCalculatorService(year: Int, age: Int, income: Double, investment: Double) {
 
   val senior_citizen_year_wise_rebate: Map[Int, Int] = Map(2018 -> 0, 2019 -> 50000, 2020 -> 75000)
+  val year_wise_cess_rate: Map[Int, Double] = Map(2018 -> 1, 2019 -> 2, 2020 -> 5)
   var tax_brackets: List[TaxCalculatorItem] = FileReader.read(year + ".csv")
 
   def get_tax_slab: Int = {
@@ -40,6 +41,7 @@ class TaxCalculatorService(year: Int, age: Int, income: Double, investment: Doub
         counter += 1
       }
     }
+    if (tax > 500000) tax += tax*(year_wise_cess_rate(year)/100)
     tax
   }
 }
