@@ -1,4 +1,4 @@
 Min Income,Max Income,Tax Percentage
-0,100000,0
+1,100000,0
 100001,1000000,15
 1000001,,25
