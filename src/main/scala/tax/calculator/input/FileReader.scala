@@ -1,9 +1,11 @@
 package tax.calculator.input
 
+import java.io.FileNotFoundException
+
 import tax.calculator.model.{IncomeDetails, TaxSlab}
 
 import scala.collection.mutable.ListBuffer
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
 class FileReader extends Reader {
 
@@ -11,15 +13,21 @@ class FileReader extends Reader {
 
   override def readTaxSlabs(fileName: String): List[TaxSlab] = {
     val items: ListBuffer[TaxSlab] = ListBuffer[TaxSlab]()
-    for (line <- Source.fromResource(fileName).getLines()) {
-      val lineItem: Seq[String] = line.split(",")
-      if (!columnHeaders.exists(header => line.contains(header))) {
-        val minIncome: Double = lineItem(0).trim.toDouble
-        val maxIncome: Double = if (lineItem(1).trim.isEmpty) 0.toDouble else lineItem(1).toDouble
-        val taxPercentage: Double = lineItem(2).trim.toDouble
-        items += TaxSlab(minIncome, maxIncome, taxPercentage)
+    try {
+      val resource: BufferedSource = Source.fromResource(fileName)
+      for (line <- resource.getLines()) {
+        val lineItem: Seq[String] = line.split(",")
+        if (!columnHeaders.exists(header => line.contains(header))) {
+          val minIncome: Double = lineItem(0).trim.toDouble
+          val maxIncome: Double = if (lineItem(1).trim.isEmpty) 0.toDouble else lineItem(1).toDouble
+          val taxPercentage: Double = lineItem(2).trim.toDouble
+          items += TaxSlab(minIncome, maxIncome, taxPercentage)
+        }
       }
+    } catch {
+      case e: NullPointerException => throw new FileNotFoundException("Resource file not found")
     }
+
     items.toList
   }
 
