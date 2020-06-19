@@ -8,7 +8,12 @@
 
 plugins {
     // Apply the scala plugin to add support for Scala
+    application
     scala
+}
+
+application {
+    mainClassName = "Main"
 }
 
 repositories {
