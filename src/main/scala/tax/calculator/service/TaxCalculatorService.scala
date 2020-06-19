@@ -4,7 +4,7 @@ import tax.calculator.TaxCalculator
 import tax.calculator.input.FileReader
 import tax.calculator.model.TaxSlab
 
-class TaxCalculator(fileReader: FileReader) {
+class TaxCalculatorService(fileReader: FileReader) {
 
   val yearSeniorCitizenRebate: Map[Int, Int] = Map(2018 -> 0, 2019 -> 50000, 2020 -> 75000)
   val yearCessRate: Map[Int, Double] = Map(2018 -> 1, 2019 -> 2, 2020 -> 5)
