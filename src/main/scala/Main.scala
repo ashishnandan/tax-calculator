@@ -13,8 +13,9 @@ object Main {
 
   def tax(incomeDetailsList: List[IncomeDetails]): Unit = {
     var response: ListBuffer[TaxDetails] = ListBuffer[TaxDetails]()
+    val taxCalculatorService = new TaxCalculatorService(new FileReader())
     for (income <- incomeDetailsList) {
-      val tax: (Double, Double) = new TaxCalculatorService(income.year, income.age, income.income, income.investment).calculateTax
+      val tax: (Double, Double) = taxCalculatorService.calculateTax(income.year, income.age, income.income, income.investment)
       response += TaxDetails(income, tax._1, tax._2, (tax._1 + tax._2))
     }
     response.foreach { println }
