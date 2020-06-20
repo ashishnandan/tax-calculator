@@ -15,6 +15,7 @@ object Main {
     } catch {
       case e: FileNotFoundException => println(e.getMessage)
       case b: ArrayIndexOutOfBoundsException => println("Input file not correct, some values are missing")
+      case c: IllegalArgumentException => println(c.getMessage)
     }
   }
 

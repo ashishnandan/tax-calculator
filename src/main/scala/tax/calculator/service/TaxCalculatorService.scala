@@ -1,5 +1,7 @@
 package tax.calculator.service
 
+import java.util.NoSuchElementException
+
 import tax.calculator.TaxCalculator
 import tax.calculator.input.FileReader
 import tax.calculator.model.TaxSlab
@@ -20,9 +22,14 @@ class TaxCalculatorService(fileReader: FileReader) {
   private def taxableInc(year: Int, age: Int, income: Double, investment: Double): Double = income - getDeductionAmount(age, year, investment)
 
   private def getDeductionAmount(age: Int, year: Int, investment: Double): Double = {
-    val isSeniorCitizen: Boolean = age >= 60
-    val seniorCitizenRebate: Double = if (isSeniorCitizen) yearSeniorCitizenRebate(year) else 0
-    Math.min(maxInvestmentAllowedPerYear(year), investment) + seniorCitizenRebate
+    try {
+      val maxInvPerYear: Double = maxInvestmentAllowedPerYear(year)
+      val isSeniorCitizen: Boolean = age >= 60
+      val seniorCitizenRebate: Double = if (isSeniorCitizen) yearSeniorCitizenRebate(year) else 0
+      Math.min(maxInvPerYear, investment) + seniorCitizenRebate
+    } catch {
+      case NoSuchElementException => throw new IllegalArgumentException(year + " year not supported, please add tax slab file first")
+    }
   }
 
   def calculateTax(year: Int, age: Int, income: Double, investment: Double): (Double, Double) = {
