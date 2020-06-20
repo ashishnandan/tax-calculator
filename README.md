@@ -22,7 +22,7 @@ Refer to src/main/resources/input.txt. Contents copied below
 ```
 
 ### Sample Output
-Once you execute the run command, you will get below output
+Once you execute the run command, you will get below output in terminal
 
 ```
    Year : 2019, Age : 28, Income : 500000.0, Investment : 75000.0
